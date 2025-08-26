@@ -155,10 +155,10 @@ const Navigation = ({ scrolled, isMenuOpen, setIsMenuOpen }: any) => {
               CONTACT
             </a>
             <div className="text-sm tracking-wide text-gray-600 py-2">
-              (212) 555-0123
+              (+91) 91126 64990
             </div>
             <a
-              href="tel:+12125550123"
+              href="tel:+919112664990"
               className="block w-full bg-black text-white px-6 py-2 text-sm tracking-wide text-center"
             >
               CALL NOW
