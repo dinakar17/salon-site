@@ -485,8 +485,21 @@ const GallerySection = () => {
 };
 
 // Testimonials Section Component
-const TestimonialsSection = () => {
-  const testimonials = [
+interface Testimonial {
+  name: string;
+  text: string;
+  location: string;
+}
+
+interface StatItem {
+  value: string;
+  label: string;
+  showStars?: boolean;
+}
+
+// Testimonials Section Component
+const TestimonialsSection: React.FC = () => {
+  const testimonials: Testimonial[] = [
     {
       name: "Priya Sharma",
       text: "Seven Salon has been my go-to place for the past two years. The staff is incredibly skilled and always makes me feel comfortable. Every time I leave, I feel absolutely beautiful and confident.",
@@ -504,39 +517,62 @@ const TestimonialsSection = () => {
     },
   ];
 
+  const stats: StatItem[] = [
+    {
+      value: "4.8",
+      label: "Average Rating",
+      showStars: true,
+    },
+    {
+      value: "320+",
+      label: "Happy Customers",
+    },
+    {
+      value: "255+",
+      label: "Photos Shared",
+    },
+  ];
+
   return (
-    <section id="testimonials" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
+    <section id="testimonials" className="py-12 md:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Header Section */}
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 md:mb-6">
             What Our Clients Say
           </h2>
-          <div className="w-20 h-px bg-black mx-auto mb-8"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <div className="w-16 md:w-20 h-px bg-black mx-auto mb-6 md:mb-8"></div>
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
             Discover why clients across Pune choose Seven The Hair and Beauty
             Salon for their grooming and beauty needs.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-8 shadow-sm hover:shadow-lg transition-shadow duration-300"
+              className="bg-white p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 rounded-lg"
             >
-              <div className="mb-6">
-                <div className="text-6xl text-gray-200 font-serif leading-none">
+              {/* Quote Mark */}
+              <div className="mb-4 md:mb-6">
+                <div className="text-4xl md:text-6xl text-gray-200 font-serif leading-none">
                   &quot;
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-8 italic">
+
+              {/* Testimonial Text */}
+              <p className="text-gray-700 leading-relaxed mb-6 md:mb-8 italic text-sm md:text-base">
                 {testimonial.text}
               </p>
-              <div className="border-t border-gray-100 pt-6">
-                <div className="font-light text-lg tracking-wide">
+
+              {/* Author Info */}
+              <div className="border-t border-gray-100 pt-4 md:pt-6">
+                <div className="font-light text-base md:text-lg tracking-wide text-gray-900">
                   {testimonial.name}
                 </div>
-                <div className="text-gray-500 text-sm tracking-wide">
+                <div className="text-gray-500 text-xs md:text-sm tracking-wide mt-1">
                   {testimonial.location}
                 </div>
               </div>
@@ -544,32 +580,45 @@ const TestimonialsSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-16">
-          <div className="bg-white p-8 rounded-lg shadow-sm inline-block">
-            <div className="flex items-center justify-center space-x-6">
-              <div className="text-center">
-                <div className="text-3xl font-light text-gray-800">4.8</div>
-                <div className="flex justify-center mb-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-yellow-400">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <div className="text-sm text-gray-600">Average Rating</div>
-              </div>
-              <div className="w-px h-16 bg-gray-200"></div>
-              <div className="text-center">
-                <div className="text-3xl font-light text-gray-800">320+</div>
-                <div className="text-sm text-gray-600 mt-3">
-                  Happy Customers
-                </div>
-              </div>
-              <div className="w-px h-16 bg-gray-200"></div>
-              <div className="text-center">
-                <div className="text-3xl font-light text-gray-800">255+</div>
-                <div className="text-sm text-gray-600 mt-3">Photos Shared</div>
-              </div>
+        {/* Stats Section */}
+        <div className="text-center mt-12 md:mt-16">
+          <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm inline-block w-full max-w-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+              {stats.map((stat, index) => (
+                <React.Fragment key={index}>
+                  <div className="text-center">
+                    <div className="text-2xl md:text-3xl font-light text-gray-800 mb-2">
+                      {stat.value}
+                    </div>
+
+                    {stat.showStars && (
+                      <div className="flex justify-center mb-2 md:mb-1">
+                        {[...Array(5)].map((_, i) => (
+                          <span
+                            key={i}
+                            className="text-yellow-400 text-lg md:text-xl"
+                            role="img"
+                            aria-label="star"
+                          >
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="text-xs md:text-sm text-gray-600 leading-tight">
+                      {stat.label}
+                    </div>
+                  </div>
+
+                  {/* Divider - Hidden on mobile for cleaner layout */}
+                  {index < stats.length - 1 && (
+                    <div className="hidden sm:flex items-center justify-center">
+                      <div className="w-px h-12 md:h-16 bg-gray-200"></div>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </div>
